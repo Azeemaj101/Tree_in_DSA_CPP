@@ -1,4 +1,5 @@
 #include <iostream>
+#define SPACE 10
 using namespace std;
 
 class BinaryTree
@@ -143,6 +144,31 @@ public:
         }
         return cur;
     }
+    void print2D(BinaryTree *r, int space) {
+    if (r == NULL) // Base case  1
+      return;
+    space += SPACE; // Increase distance between levels   2
+    print2D(r -> right, space); // Process right child first 3 
+    cout << endl;
+    for (int i = SPACE; i < space; i++) // 5 
+      cout << " "; // 5.1  
+    cout << r -> Data << "\n"; // 6
+    print2D(r -> left, space); // Process left child  7
+  }
+    int height(BinaryTree *r) {
+    if (r == NULL)
+      return -1;
+    else {
+      /* compute the height of each subtree */
+      int lheight = height(r -> left);
+      int rheight = height(r -> right);
+
+      /* use the larger one */
+      if (lheight > rheight)
+        return (lheight + 1);
+      else return (rheight + 1);
+    }
+  }
 };
 int main()
 {
@@ -160,7 +186,9 @@ int main()
         cout << "Press 5  For View   Postorder\n";
         cout << "Press 6  For Search Data\n";
         cout << "Press 7  For Delete Data\n";
-        cout << "Press 8 For Exit\n";
+        cout << "Press 8  For 2D     View\n";
+        cout << "Press 9  For Height\n";
+        cout << "Press 10 For Exit\n";
         cout << "Input = ";
         cin >> val;
         switch (val)
@@ -283,6 +311,21 @@ int main()
             break;
         }
         case 8:
+        {
+            cout << "2D Traversing = ";
+            Obj.print2D(Obj.Root, 5);
+            system("PAUSE");
+            break;
+        }
+        case 9:
+        {
+            int DA;
+            DA = Obj.height(Obj.Root);
+            cout<<"Height is "<<DA<<endl;
+            system("PAUSE");
+            break;
+        }
+        case 10:
         {
             Goto = false;
             break;
